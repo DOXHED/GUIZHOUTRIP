@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>贵州行 · 10.2–10.6 · 5日手册</title>
+<style>
+  :root{
+    --bg:#f6f3ec; --card:#ffffff; --ink:#2b2b2b; --muted:#8a8577; --line:#e6e1d4;
+    --accent:#c05621; --badge-book:#c05621; --badge-free:#2f855a; --badge-todo:#718096;
+    --chip:#f1ede2; --shadow:0 2px 10px rgba(60,50,30,.08);
+    --d1:#e67e22; --d2:#2980b9; --d3:#27ae60; --d4:#8e44ad; --d5:#c0392b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1c1a17; --card:#262420; --ink:#ece7db; --muted:#9a9484; --line:#3a362f;
+      --accent:#f6ad55; --badge-book:#f6ad55; --badge-free:#68d391; --badge-todo:#a0aec0;
+      --chip:#322f29; --shadow:0 2px 10px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    line-height:1.6; font-size:16px;}
+  .wrap{max-width:720px; margin:0 auto; padding:0 14px 60px;}
+  header{padding:26px 4px 6px;}
+  header h1{margin:0; font-size:26px; letter-spacing:1px;}
+  header .sub{color:var(--muted); font-size:14px; margin-top:4px;}
+  section{margin-top:26px;}
+  h2{font-size:19px; margin:0 0 12px; display:flex; align-items:center; gap:8px;}
+  h2::after{content:""; flex:1; height:1px; background:var(--line);}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow);}
+
+  /* 此刻关注 */
+  .now{padding:20px 18px; text-align:center;}
+  .now .label{font-size:13px; color:var(--muted); letter-spacing:2px;}
+  .now .event{font-size:20px; font-weight:700; margin:6px 0 2px;}
+  .now .etime{font-size:13px; color:var(--muted);}
+  .cd{display:flex; justify-content:center; gap:10px; margin-top:14px;}
+  .cd .unit{background:var(--chip); border-radius:12px; padding:10px 0; width:72px;}
+  .cd .num{font-size:30px; font-weight:800; font-variant-numeric:tabular-nums; line-height:1.1;}
+  .cd .cap{font-size:12px; color:var(--muted);}
+  .cd .sep{align-self:center; font-size:24px; color:var(--muted);}
+  .now .hint{margin-top:12px; font-size:12px; color:var(--muted);}
+
+  /* 徽章与 chips */
+  .badge{display:inline-block; font-size:11px; padding:1px 8px; border-radius:99px; vertical-align:2px; white-space:nowrap;}
+  .b-book{background:var(--badge-book); color:#fff;}
+  @media (prefers-color-scheme: dark){ .b-book{color:#1a1512;} }
+  .b-free{background:transparent; color:var(--badge-free); border:1px solid var(--badge-free);}
+  .b-todo{background:transparent; color:var(--badge-todo); border:1px solid var(--badge-todo);}
+  .navs{margin-top:6px; display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{font-size:12px; text-decoration:none; color:var(--ink); background:var(--chip);
+    border:1px solid var(--line); border-radius:99px; padding:3px 11px;}
+  .chip:active{opacity:.6;}
+  .multipoint{margin-top:10px; font-size:13px; color:var(--accent); text-decoration:none; font-weight:600;}
+
+  /* 时间轴 */
+  details.day{margin-bottom:14px;}
+  details.day summary{list-style:none; cursor:pointer; padding:14px 16px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  details.day summary::-webkit-details-marker{display:none;}
+  details.day summary .arrow{margin-left:auto; color:var(--muted); transition:transform .2s; font-size:13px;}
+  details.day[open] summary .arrow{transform:rotate(90deg);}
+  .daytag{color:#fff; font-size:12px; font-weight:700; border-radius:8px; padding:2px 9px; white-space:nowrap;}
+  @media (prefers-color-scheme: dark){ .daytag{color:#1a1512;} }
+  .daybody{border-top:1px dashed var(--line); padding:14px 16px 16px;}
+  .routemap{width:100%; height:auto; display:block; margin-bottom:12px;}
+  .tl{display:grid; grid-template-columns:56px 1fr; gap:0 12px;}
+  .tl .t{font-variant-numeric:tabular-nums; color:var(--muted); font-size:13px; padding-top:3px; text-align:right;}
+  .tl .c{padding:0 0 16px; border-left:2px solid var(--line); padding-left:14px; position:relative;}
+  .tl .c::before{content:""; position:absolute; left:-5px; top:9px; width:8px; height:8px; border-radius:50%; background:var(--muted);}
+  .tl .c b{font-size:15px;}
+  .tl .c .desc{font-size:14px; color:var(--muted); margin-top:2px;}
+  .stay{margin-top:4px; font-size:13px; padding:8px 12px; background:var(--chip); border-radius:10px;}
+  .stay b{font-size:13px;}
+
+  /* 预订表 */
+  .book{padding:4px 16px;}
+  .book .row{display:flex; gap:12px; padding:13px 0; border-bottom:1px dashed var(--line);}
+  .book .row:last-child{border-bottom:none;}
+  .book .ic{font-size:20px; line-height:1.4;}
+  .book .info{flex:1; min-width:0;}
+  .book .info b{font-size:15px;}
+  .book .info .d{font-size:13px; color:var(--muted);}
+
+  /* 待办 & 贴士 */
+  ul.plain,ol.plain{margin:0; padding-left:22px;}
+  ul.plain li,ol.plain li{padding:5px 0; font-size:15px;}
+  .tips{padding:6px 18px 14px;}
+  .tips li{margin-bottom:8px;}
+  .warn{color:var(--accent); font-weight:600;}
+
+  footer{margin-top:36px; text-align:center; color:var(--muted); font-size:12px; line-height:1.8;}
+  .map-legend{display:flex; flex-wrap:wrap; gap:8px 16px; font-size:13px; color:var(--muted); padding:10px 16px 16px;}
+  .map-legend i{display:inline-block; width:18px; height:4px; border-radius:2px; margin-right:5px; vertical-align:3px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>贵州行 🏔️</h1>
+  <div class="sub">2026.10.2 – 10.6 · 5 天 · 4 人 · 高铁 + 自驾 · 织金—赫章草原—大方—毕节环线</div>
+</header>
+
+<!-- ① 此刻关注 -->
+<section>
+  <div class="card now">
+    <div class="label">此 刻 关 注</div>
+    <div class="event" id="nextEvent">加载中…</div>
+    <div class="etime" id="nextTime"></div>
+    <div class="cd">
+      <div class="unit"><div class="num" id="cdD">--</div><div class="cap">天</div></div><div class="sep">:</div>
+      <div class="unit"><div class="num" id="cdH">--</div><div class="cap">时</div></div><div class="sep">:</div>
+      <div class="unit"><div class="num" id="cdM">--</div><div class="cap">分</div></div><div class="sep">:</div>
+      <div class="unit"><div class="num" id="cdS">--</div><div class="cap">秒</div></div>
+    </div>
+    <div class="hint">所有时间均为北京时间（UTC+8），在任何时区打开都准确</div>
+  </div>
+</section>
+
+<!-- ② 行程总览地图 -->
+<section>
+  <h2>行程总览</h2>
+  <div class="card">
+    <svg viewBox="0 0 680 330" style="width:100%;display:block">
+      <g transform="rotate(-1.2 340 165)" stroke-linecap="round">
+        <rect x="8" y="8" width="664" height="314" rx="14" fill="none" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <!-- Day1 贵阳北→织金 -->
+        <path d="M 612 228 C 540 265, 460 268, 398 240" fill="none" stroke="var(--d1)" stroke-width="4" opacity=".9"/>
+        <!-- Day2 织金↔织金洞/大峡谷 + 织金→赫章 -->
+        <path d="M 392 236 C 380 220, 392 210, 404 206" fill="none" stroke="var(--d2)" stroke-width="3.5" stroke-dasharray="7 5"/>
+        <path d="M 384 232 C 300 208, 180 170, 102 118" fill="none" stroke="var(--d2)" stroke-width="4"/>
+        <!-- Day3 赫章→二台坡→毕节 -->
+        <path d="M 94 118 C 104 136, 118 152, 130 160 M 136 156 C 180 122, 230 96, 264 88" fill="none" stroke="var(--d3)" stroke-width="4"/>
+        <!-- Day4 毕节⇄大方 -->
+        <path d="M 270 84 C 296 86, 320 94, 340 104 M 346 110 C 322 100, 298 94, 274 92" fill="none" stroke="var(--d4)" stroke-width="4"/>
+        <!-- Day5 毕节→毕节站 -->
+        <path d="M 272 92 C 271 89, 270 86, 270 84" fill="none" stroke="var(--d5)" stroke-width="4"/>
+        <!-- 城市点 -->
+        <g font-size="13" fill="var(--ink)" font-weight="600">
+          <circle cx="612" cy="228" r="6" fill="var(--d1)"/><text x="588" y="218">贵阳北</text>
+          <circle cx="392" cy="236" r="6" fill="var(--d1)"/><text x="368" y="256">织金县城 💤</text>
+          <circle cx="404" cy="206" r="5" fill="var(--d2)"/><text x="416" y="200" font-size="12">织金洞·大峡谷</text>
+          <circle cx="96" cy="112" r="6" fill="var(--d2)"/><text x="58" y="140">赫章县城 💤</text>
+          <circle cx="132" cy="160" r="5" fill="var(--d3)"/><text x="142" y="174" font-size="12">二台坡草原</text>
+          <circle cx="344" cy="106" r="5" fill="var(--d4)"/><text x="322" y="96" font-size="12">大方（慕俄格·奢香）</text>
+          <circle cx="270" cy="86" r="6" fill="var(--d3)"/><text x="240" y="72">毕节市区 💤💤</text>
+        </g>
+        <!-- 手写注记 -->
+        <g font-size="12" fill="var(--muted)" font-style="italic">
+          <text x="480" y="262">Day1 · 约2h 车程</text>
+          <text x="190" y="200">Day2 · 织金→赫章 约3h ⚠️末段夜路</text>
+          <text x="150" y="132">Day3 · 草原→毕节 约2h</text>
+          <text x="292" y="122">Day4 · 毕节⇄大方 往返约2h</text>
+        </g>
+      </g>
+    </svg>
+    <div class="map-legend">
+      <span><i style="background:var(--d1)"></i>Day1 10/2</span>
+      <span><i style="background:var(--d2)"></i>Day2 10/3</span>
+      <span><i style="background:var(--d3)"></i>Day3 10/4</span>
+      <span><i style="background:var(--d4)"></i>Day4 10/5</span>
+      <span><i style="background:var(--d5)"></i>Day5 10/6</span>
+      <span>💤 = 当晚住宿</span>
+    </div>
+  </div>
+</section>
+
+<!-- ③ 已确认预订 -->
+<section>
+  <h2>已确认预订</h2>
+  <div class="card book">
+    <div class="row"><div class="ic">🚄</div><div class="info">
+      <b>去程高铁 G4929</b>
+      <div class="d">10月2日（周五）长沙南 02:56 → 贵阳北 06:14 · 二等座 ¥302</div>
+      <div class="d warn">凌晨发车！10月1日晚即到长沙南候车，别睡过头</div>
+    </div></div>
+    <div class="row"><div class="ic">🚄</div><div class="info">
+      <b>返程高铁 C9167 + G2182（贵阳中转）</b>
+      <div class="d">10月6日（周二）毕节 15:10 → 贵阳北 16:12 · ¥71<br>贵阳北 → 贵阳东换乘（约40分钟车程，时间充裕，可吃晚饭）<br>贵阳东 20:02 → 长沙南 23:19 · 二等座 ¥335</div>
+      <div class="d warn">23:19 才到长沙南，回株洲的城际大概率已收班，需网约车/出租车（约1小时）</div>
+    </div></div>
+    <div class="row"><div class="ic">🚗</div><div class="info">
+      <b>租车 · 丰田锋兰达 2.0L 自动 SUV（5座）</b>
+      <div class="d">10/2 13:30 贵阳北站西广场服务点取 → 10/6 15:00 毕节高铁站服务点还 · 共4天 · 全额车损保障（含轮胎）· ¥200服务包（含加油券¥10×2）</div>
+      <div class="d warn">⚠️ 订单还车时间 15:00，但 C9167 是 15:10 发车 —— 务必把还车时间改到 13:30，或确认可提前还车不另收费</div>
+      <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=106.6265,26.6815,贵阳北站西广场&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 取车点·高德</a><a class="chip" href="https://maps.apple.com/?daddr=贵阳北站&dirflg=d">🍎 苹果地图</a></div>
+    </div></div>
+    <div class="row"><div class="ic">🏨</div><div class="info">
+      <b>10/2 织金 · 贵州泊灵大酒店（织金古城步行街店）</b>
+      <div class="d">织金县新华北路22号（山禾源北门）· ☎️ 0857-7628888 · 2间 · ¥428</div>
+      <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.769,26.661,贵州泊灵大酒店&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 高德</a><a class="chip" href="https://maps.apple.com/?daddr=贵州泊灵大酒店织金古城步行街店&dirflg=d">🍎 苹果地图</a></div>
+    </div></div>
+    <div class="row"><div class="ic">🏨</div><div class="info">
+      <b>10/3 赫章 · 升云客栈</b>
+      <div class="d">赫章县福田路与夜郎大道交叉口东北角 · 2间 · ¥312</div>
+      <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=104.72,27.128,赫章升云客栈&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 高德</a><a class="chip" href="https://maps.apple.com/?daddr=赫章升云客栈&dirflg=d">🍎 苹果地图</a></div>
+    </div></div>
+    <div class="row"><div class="ic">🏨</div><div class="info">
+      <b>10/4、10/5 毕节 · 拾光·住房（区政务店/联邦金座）</b>
+      <div class="d">七星关区三十米大道·联邦金座（气象局旁）· 2间 × 2晚 · ¥258 / ¥256</div>
+      <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.335,27.295,联邦金座&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 高德</a><a class="chip" href="https://maps.apple.com/?daddr=毕节联邦金座&dirflg=d">🍎 苹果地图</a></div>
+    </div></div>
+    <div class="row"><div class="ic">🎫</div><div class="info">
+      <b>门票 <span class="badge b-book">需提前预订</span></b>
+      <div class="d">织金洞 + 织金大峡谷联票（10/3，争取8:00首批）· 二台坡门票20元/人 + 自驾车入园100元/辆（10/4）</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ④ 逐日行程 -->
+<section>
+  <h2>逐日行程</h2>
+
+  <details class="day card" open>
+    <summary><span class="daytag" style="background:var(--d1)">Day 1</span><b>10/2 周五 · 落地休整 → 织金</b><span class="arrow">▶</span></summary>
+    <div class="daybody">
+      <svg class="routemap" viewBox="0 0 640 70">
+        <path d="M 60 38 C 200 20, 420 54, 570 36" fill="none" stroke="var(--d1)" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="60" cy="38" r="5" fill="var(--d1)"/><text x="34" y="62" font-size="12" fill="var(--muted)">贵阳北</text>
+        <text x="290" y="24" font-size="12" fill="var(--muted)">自驾 约2小时</text>
+        <circle cx="570" cy="36" r="5" fill="var(--d1)"/><text x="500" y="62" font-size="12" fill="var(--muted)">织金县城 💤</text>
+      </svg>
+      <a class="multipoint" href="https://uri.amap.com/navigation?from=106.6265,26.6815,贵阳北站&to=105.769,26.661,贵州泊灵大酒店&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🗺️ 打开全天多点导航（高德）</a>
+      <div class="tl" style="margin-top:14px">
+        <div class="t">02:56</div><div class="c"><b>G4929 长沙南发车</b><div class="desc">10月1日晚起在长沙南候车，凌晨发车设好闹钟</div></div>
+        <div class="t">06:14</div><div class="c"><b>抵达贵阳北 · 寄存行李</b>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=106.6265,26.6815,贵阳北站&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 贵阳北·高德</a><a class="chip" href="https://maps.apple.com/?daddr=贵阳北站&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">上午</div><div class="c"><b>市区轻松逛（打车往返）</b><div class="desc">先吃碗肠旺面/牛肉粉，再就近逛观山湖公园或甲秀楼，13:15 前回北站</div></div>
+        <div class="t">13:30</div><div class="c"><b>贵阳北站西广场取车（丰田锋兰达 SUV）</b>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=106.6265,26.6815,贵阳北站西广场&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 取车点·高德</a><a class="chip" href="https://maps.apple.com/?daddr=贵阳北站&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">14:00</div><div class="c"><b>自驾赴织金（约2小时）</b><div class="desc">入住贵州泊灵大酒店放行李</div></div>
+        <div class="t">傍晚</div><div class="c"><b>夜游织金古城</b><div class="desc">财神庙、老巷，纯散步不爬山</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.769,26.661,织金古城&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 织金古城·高德</a><a class="chip" href="https://maps.apple.com/?daddr=织金古城&dirflg=d">🍎 苹果地图</a></div></div>
+      </div>
+      <div class="stay">🏠 宿 <b>贵州泊灵大酒店（新华北路22号，0857-7628888）</b> ｜ 🍜 荞凉粉 · 织金烙锅 · 水八碗</div>
+    </div>
+  </details>
+
+  <details class="day card">
+    <summary><span class="daytag" style="background:var(--d2)">Day 2</span><b>10/3 周六 · 织金洞 → 赶路赫章</b><span class="badge b-book">需提前订票</span><span class="arrow">▶</span></summary>
+    <div class="daybody">
+      <svg class="routemap" viewBox="0 0 640 70">
+        <path d="M 60 44 C 140 26, 220 24, 290 30 C 380 38, 480 44, 580 40" fill="none" stroke="var(--d2)" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="60" cy="44" r="5" fill="var(--d2)"/><text x="26" y="66" font-size="12" fill="var(--muted)">织金县城</text>
+        <circle cx="290" cy="30" r="5" fill="var(--d2)"/><text x="250" y="16" font-size="12" fill="var(--muted)">织金洞·大峡谷</text>
+        <circle cx="580" cy="40" r="5" fill="var(--d2)"/><text x="542" y="64" font-size="12" fill="var(--muted)">赫章 💤</text>
+        <text x="420" y="26" font-size="12" fill="var(--muted)">约3h ⚠️夜路</text>
+      </svg>
+      <a class="multipoint" href="https://uri.amap.com/navigation?from=105.769,26.661,贵州泊灵大酒店&to=104.72,27.128,赫章升云客栈&via=105.85,26.774,织金洞,105.833,26.745,织金大峡谷&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🗺️ 打开全天多点导航（高德）</a>
+      <div class="tl" style="margin-top:14px">
+        <div class="t">08:00</div><div class="c"><b>织金洞首批入场 <span class="badge b-book">提前预约</span></b><div class="desc">游玩2.5–3小时；洞内恒温16℃，带薄外套；必看霸王盔、银雨树</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.85,26.774,织金洞&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 织金洞·高德</a><a class="chip" href="https://maps.apple.com/?daddr=织金洞&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">13:30</div><div class="c"><b>织金大峡谷（与织金洞联票）</b><div class="desc">天梯下谷底、天生桥、燕子洞暗河游船约1.5小时</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.833,26.745,织金大峡谷&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 大峡谷·高德</a><a class="chip" href="https://maps.apple.com/?daddr=织金大峡谷&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">15:45</div><div class="c"><b class="warn">出发赴赫章（约200km / 3小时）</b><div class="desc">今天最赶的一段，末段山路夜路；两人换着开，大峡谷玩得慢就压缩游船，16:00 前务必出织金</div></div>
+        <div class="t">19:00</div><div class="c"><b>抵赫章，晚餐核桃鸡，入住升云客栈</b></div>
+      </div>
+      <div class="stay">🏠 宿 <b>赫章升云客栈（福田路与夜郎大道交叉口）</b> ｜ 🍜 赫章核桃鸡</div>
+    </div>
+  </details>
+
+  <details class="day card">
+    <summary><span class="daytag" style="background:var(--d3)">Day 3</span><b>10/4 周日 · 二台坡草原 → 毕节</b><span class="badge b-book">门票+车需预订</span><span class="arrow">▶</span></summary>
+    <div class="daybody">
+      <svg class="routemap" viewBox="0 0 640 70">
+        <path d="M 60 40 C 150 46, 230 34, 290 30 C 400 26, 500 34, 580 36" fill="none" stroke="var(--d3)" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="60" cy="40" r="5" fill="var(--d3)"/><text x="30" y="62" font-size="12" fill="var(--muted)">赫章</text>
+        <circle cx="290" cy="30" r="5" fill="var(--d3)"/><text x="240" y="16" font-size="12" fill="var(--muted)">二台坡草原</text>
+        <circle cx="580" cy="36" r="5" fill="var(--d3)"/><text x="528" y="60" font-size="12" fill="var(--muted)">毕节市区 💤</text>
+        <text x="410" y="52" font-size="12" fill="var(--muted)">约1.5–2h</text>
+      </svg>
+      <a class="multipoint" href="https://uri.amap.com/navigation?from=104.72,27.128,赫章升云客栈&to=105.335,27.295,联邦金座&via=104.858,26.938,二台坡草原&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🗺️ 打开全天多点导航（高德）</a>
+      <div class="tl" style="margin-top:14px">
+        <div class="t">07:30</div><div class="c"><b>赫章出发（约1小时）</b></div>
+        <div class="t">08:30</div><div class="c"><b>二台坡进园（旺季 8:30–18:00）</b><div class="desc">门票20元/人 + 自驾车100元/辆（含司机）；海拔2300米，风大温差大，务必防风外套</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=104.858,26.938,二台坡草原&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 二台坡·高德</a><a class="chip" href="https://maps.apple.com/?daddr=阿西里西二台坡景区&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">08:30–<br>11:30</div><div class="c"><b>波浪公路 · W弯道 · 风车 · 万峰观景台</b><div class="desc">波浪公路13公里单向环线，开一圈约12–20分钟</div></div>
+        <div class="t">11:45</div><div class="c"><b>出景区，出发赴毕节（约1.5–2小时）</b><div class="desc">路上简餐</div></div>
+        <div class="t">14:00</div><div class="c"><b>抵毕节，入住后休整</b><div class="desc">下午市区闲逛、补觉，晚上出门吃毕节风味，养足精神</div></div>
+      </div>
+      <div class="stay">🏠 宿 <b>毕节拾光·住房（联邦金座，七星关区三十米大道）</b> ｜ 🍜 羊汤锅 · 毕节脆哨面</div>
+    </div>
+  </details>
+
+  <details class="day card">
+    <summary><span class="daytag" style="background:var(--d4)">Day 4</span><b>10/5 周一 · 大方往返（慕俄格 + 奢香古镇）</b><span class="arrow">▶</span></summary>
+    <div class="daybody">
+      <svg class="routemap" viewBox="0 0 640 70">
+        <path d="M 70 46 C 180 40, 300 24, 420 26 C 490 28, 540 34, 575 40" fill="none" stroke="var(--d4)" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M 575 44 C 540 46, 470 48, 400 48 C 290 50, 160 52, 70 50" fill="none" stroke="var(--d4)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="8 5"/>
+        <circle cx="70" cy="46" r="5" fill="var(--d4)"/><text x="40" y="66" font-size="12" fill="var(--muted)">毕节</text>
+        <circle cx="330" cy="26" r="5" fill="var(--d4)"/><text x="290" y="14" font-size="12" fill="var(--muted)">慕俄格古城·奢香古镇</text>
+        <text x="240" y="62" font-size="12" fill="var(--muted)">单程约1h，白天往返更安全</text>
+      </svg>
+      <a class="multipoint" href="https://uri.amap.com/navigation?from=105.335,27.295,联邦金座&to=105.335,27.295,联邦金座&via=105.61,27.153,慕俄格古城,105.618,27.128,奢香古镇&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🗺️ 打开全天多点导航（高德）</a>
+      <div class="tl" style="margin-top:14px">
+        <div class="t">08:30</div><div class="c"><b>毕节出发赴大方（约1小时）</b></div>
+        <div class="t">09:30</div><div class="c"><b>慕俄格古城（宣慰府）</b><div class="desc">水西彝族文化，人少出片</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.61,27.153,慕俄格古城&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 慕俄格·高德</a><a class="chip" href="https://maps.apple.com/?daddr=慕俄格古城&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">12:00</div><div class="c"><b>大方午餐</b><div class="desc">活油烙锅</div></div>
+        <div class="t">15:00</div><div class="c"><b>奢香古镇</b><div class="desc">免费，大地指纹梯田</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.618,27.128,奢香古镇&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 奢香古镇·高德</a><a class="chip" href="https://maps.apple.com/?daddr=奢香古镇&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">18:30</div><div class="c"><b>看完夜景返回毕节（约1小时）</b><div class="desc">比夜奔赫章轻松得多</div></div>
+      </div>
+      <div class="stay">🏠 宿 <b>毕节拾光·住房（联邦金座）</b> ｜ 🍜 大方活油烙锅 · 羊汤锅</div>
+    </div>
+  </details>
+
+  <details class="day card">
+    <summary><span class="daytag" style="background:var(--d5)">Day 5</span><b>10/6 周二 · 毕节市区 → 返程</b><span class="arrow">▶</span></summary>
+    <div class="daybody">
+      <svg class="routemap" viewBox="0 0 640 70">
+        <path d="M 80 44 C 180 40, 300 36, 420 34 C 480 32, 530 32, 570 34" fill="none" stroke="var(--d5)" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="80" cy="44" r="5" fill="var(--d5)"/><text x="46" y="66" font-size="12" fill="var(--muted)">响水滩公园</text>
+        <circle cx="570" cy="34" r="5" fill="var(--d5)"/><text x="532" y="58" font-size="12" fill="var(--muted)">毕节站</text>
+        <text x="200" y="24" font-size="12" fill="var(--muted)">还车 → C9167 15:10 → 贵阳北换 G2182 → 长沙南 23:19</text>
+      </svg>
+      <a class="multipoint" href="https://uri.amap.com/navigation?from=105.335,27.295,联邦金座&to=105.365,27.232,毕节站&via=105.285,27.318,响水滩公园&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🗺️ 打开全天多点导航（高德）</a>
+      <div class="tl" style="margin-top:14px">
+        <div class="t">上午</div><div class="c"><b>睡到自然醒 · 响水滩公园（免费）</b><div class="desc">退房前在毕节市区轻松转转，行李装车</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.285,27.318,响水滩公园&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 响水滩·高德</a><a class="chip" href="https://maps.apple.com/?daddr=响水滩公园&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">12:30</div><div class="c"><b>出发还车 → 13:15 抵毕节高铁站服务点还车</b><div class="desc">订单写的 15:00 还车，但 C9167 15:10 就发车 —— 必须改单到 13:30 或提前还车，别卡点</div>
+          <div class="navs"><a class="chip" href="https://uri.amap.com/navigation?to=105.365,27.232,毕节站&mode=car&policy=1&src=guizhou2026&coordinate=gaode&callnative=1">🧭 毕节站·高德</a><a class="chip" href="https://maps.apple.com/?daddr=毕节站&dirflg=d">🍎 苹果地图</a></div></div>
+        <div class="t">14:00</div><div class="c"><b>进站候车</b></div>
+        <div class="t">15:10</div><div class="c"><b>C9167 毕节 → 16:12 贵阳北</b></div>
+        <div class="t">16:30</div><div class="c"><b>贵阳北 → 贵阳东换乘（约40分钟）</b><div class="desc">时间充裕，正好吃顿晚饭再进站</div></div>
+        <div class="t">20:02</div><div class="c"><b>G2182 贵阳东 → 23:19 长沙南</b></div>
+        <div class="t">23:19</div><div class="c"><b class="warn">长沙南 → 株洲</b><div class="desc">城际大概率已收班，提前叫好网约车/出租车（约1小时到家）</div></div>
+      </div>
+      <div class="stay">🏠 深夜到家</div>
+    </div>
+  </details>
+</section>
+
+<!-- ⑤ 待办清单 -->
+<section>
+  <h2>待办清单</h2>
+  <div class="card" style="padding:14px 18px;">
+    <ol class="plain">
+      <li>修改租车订单：还车时间从 15:00 改到 13:30（C9167 15:10 发车，15:00 还车必误车），或致电客服确认提前还车不另收费</li>
+      <li>提前预约 10/3 织金洞 8:00 首批入场 + 织金大峡谷联票</li>
+      <li>提前购买 10/4 二台坡门票（20元/人）+ 自驾车入园（100元/辆）</li>
+      <li>安排 10/1 晚赴长沙南的过夜候车（凌晨 02:56 发车）</li>
+      <li>查 10/6 深夜长沙南 → 株洲交通，提前预约网约车（23:19 到站）</li>
+      <li>决定 10/3 下午节奏：大峡谷游船玩满，还是 16:00 前赶路去赫章</li>
+      <li>备装备：薄外套（洞内16℃）、防风外套（草原2300米风大）、晕车药、车上充电线</li>
+      <li>检查驾照、行驶证、车辆保险及取车证件</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ⑥ 实用贴士 -->
+<section>
+  <h2>实用贴士</h2>
+  <div class="card tips">
+    <ul class="plain">
+      <li><b>时区：</b>本页所有时间均为北京时间（UTC+8），跨时区打开倒计时不会算错。</li>
+      <li><b>国庆人流：</b>织金洞 8 点、二台坡 8:30 进园都是特意留的避峰设计，赶首批能省一半排队时间。</li>
+      <li><b>穿衣：</b>三层法——短袖 + 抓绒/薄外套（洞内恒温16℃）+ 防风外套（二台坡海拔2300米，风大温差大）。</li>
+      <li><b>夜路安全：</b><span class="warn">Day2 织金→赫章（约3小时）和 Day4 返程都有夜路段，山路隧道多，务必两人换着开、控制出发时间。</span></li>
+      <li><b>加油：</b>黔西山区加油站少，见站就加，别等油灯亮。</li>
+      <li><b>草原驾驶：</b>波浪公路为13公里单向环线，旺季排队正常，留足耐心；自驾车入园需另购车票。</li>
+      <li><b>返程提醒：</b>10/6 长沙南 23:19 到站，回株洲以网约车为主，提前预约；下车别把行李落在还车车上。</li>
+      <li><b>导航：</b>点各地点的「高德 / 苹果地图」按钮直接唤起手机地图导航；每天有「全天多点导航」一键按顺序串起当日各站。</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  贵州行 · 2026.10.2–10.6 · 4 人<br>
+  所有时间均为北京时间 UTC+8 · 导航按钮唤起手机自带 / 高德地图
+</footer>
+
+</div>
+
+<script>
+(function(){
+  // 北京时间锚点事件（ISO8601 带 +08:00，任何时区打开都正确）
+  var events = [
+    {t:"2026-10-01T23:30:00+08:00", label:"出发赴长沙南候车"},
+    {t:"2026-10-02T02:56:00+08:00", label:"G4929 长沙南发车"},
+    {t:"2026-10-02T06:14:00+08:00", label:"G4929 抵达贵阳北"},
+    {t:"2026-10-02T13:30:00+08:00", label:"贵阳北西广场取车"},
+    {t:"2026-10-02T16:00:00+08:00", label:"抵达织金 · 入住泊灵大酒店"},
+    {t:"2026-10-02T18:30:00+08:00", label:"夜游织金古城"},
+    {t:"2026-10-03T08:00:00+08:00", label:"织金洞首批入场"},
+    {t:"2026-10-03T13:30:00+08:00", label:"织金大峡谷"},
+    {t:"2026-10-03T15:45:00+08:00", label:"出发赴赫章（3小时山路）"},
+    {t:"2026-10-03T19:00:00+08:00", label:"抵达赫章 · 入住升云客栈"},
+    {t:"2026-10-04T08:30:00+08:00", label:"二台坡草原进园"},
+    {t:"2026-10-04T11:45:00+08:00", label:"出发赴毕节"},
+    {t:"2026-10-04T14:00:00+08:00", label:"抵达毕节 · 入住联邦金座"},
+    {t:"2026-10-05T09:30:00+08:00", label:"抵达大方 · 慕俄格古城"},
+    {t:"2026-10-05T15:00:00+08:00", label:"奢香古镇 · 大地指纹"},
+    {t:"2026-10-05T18:30:00+08:00", label:"返回毕节"},
+    {t:"2026-10-06T12:30:00+08:00", label:"出发毕节站还车"},
+    {t:"2026-10-06T15:10:00+08:00", label:"C9167 毕节发车"},
+    {t:"2026-10-06T16:12:00+08:00", label:"抵贵阳北 · 换乘贵阳东"},
+    {t:"2026-10-06T20:02:00+08:00", label:"G2182 贵阳东发车"},
+    {t:"2026-10-06T23:19:00+08:00", label:"G2182 抵达长沙南"}
+  ];
+  var pad = function(n){ return (n<10?"0":"")+n; };
+  function tick(){
+    var now = new Date();
+    var next = null;
+    for (var i=0;i<events.length;i++){
+      if (new Date(events[i].t) > now){ next = events[i]; break; }
+    }
+    if (!next){
+      document.getElementById("nextEvent").textContent = "贵州行已圆满结束 🎉";
+      document.getElementById("nextTime").textContent = "10月6日 23:19 已抵达长沙南（北京时间）";
+      document.getElementById("cdD").textContent = "0";
+      document.getElementById("cdH").textContent = document.getElementById("cdM").textContent = document.getElementById("cdS").textContent = "00";
+      return;
+    }
+    var diff = new Date(next.t) - now;
+    var s = Math.floor(diff/1000);
+    var d = Math.floor(s/86400); s -= d*86400;
+    var h = Math.floor(s/3600);  s -= h*3600;
+    var m = Math.floor(s/60);    s -= m*60;
+    document.getElementById("nextEvent").textContent = "距「" + next.label + "」还有";
+    var dt = new Date(next.t);
+    document.getElementById("nextTime").textContent =
+      (dt.getMonth()+1) + "月" + dt.getDate() + "日 " + pad(dt.getHours()) + ":" + pad(dt.getMinutes()) + "（北京时间 UTC+8）";
+    document.getElementById("cdD").textContent = d;
+    document.getElementById("cdH").textContent = pad(h);
+    document.getElementById("cdM").textContent = pad(m);
+    document.getElementById("cdS").textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
